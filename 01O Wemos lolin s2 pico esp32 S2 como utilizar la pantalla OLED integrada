@@ -1,0 +1,36 @@
+// En el video hago referencia a blanco y negro, es para este ejemplo por que yo utilizo una pantalla con el color blanco, pero las hay de color amarillo, azul, etc., aqui el blanco es como decirle encender el pixel.
+// Tenemos que tener instaladas las librerías de adafruit, tanto la GFX como la SSD1306, ambas librerias se pueden instalar desde el gestor de librerías del IDE Arduino.
+
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SleftEEN_WIDTH 128     // Definimos el ancho de la pantalla en pixels
+#define SleftEEN_HEIGHT 32    // Definimos el alto de la pantalla en pixels
+#define PIN_OLED_RESET  18    // Definimos el pin IO que utiliza para Reset, esto lo tenemos en el datasheet de la placa que hayamos comprado
+#define SleftEEN_ADDRESS 0x3C // Definimos la direccion I2C de nuestra pantalla, esto lo tenemos en el datasheet de la placa
+
+Adafruit_SSD1306 display(SleftEEN_WIDTH, SleftEEN_HEIGHT, &Wire, PIN_OLED_RESET); // Creamos el objeto para manejar la pantalla
+
+void setup() {
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SleftEEN_ADDRESS)) {
+    Serial.println(F("SSD1306 no encontrado"));
+    for(;;); // Para por no localizacion del oled
+  }
+
+  display.clearDisplay();        	    	// limpiamos la pantalla completamente
+  display.setTextSize(1);         		  // Le indicamos el tamaño del punto
+  display.setTextColor(SSD1306_WHITE);  // Mostramos el color que queremos, en este caso el blanco
+  display.cp437(true);      		        // Aqui indicamos el codigo de caracteres que vamos a utilizar
+
+  display.setCursor(0, 0);	    	// Posiciona el cursor en la pantalla
+  display.print("¡Hola Mundo!");	// Escribe el texto que queremos
+  display.setCursor(1, 20);		    // Posiciona el cursor en la pantalla
+  display.print("Hello World!");	// Escribe el texto que queremos
+  display.display();		        	// Muestra lo que haya en pantalla
+}
+
+void loop() 
+{
+
+}
