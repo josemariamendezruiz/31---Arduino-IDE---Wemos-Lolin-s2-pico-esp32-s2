@@ -20,7 +20,7 @@ void setup() {
 
   display.clearDisplay();        	    	// limpiamos la pantalla completamente
   display.setTextSize(1);         		  // Le indicamos el tamaño del punto
-  display.setTextColor(SSD1306_WHITE);  // Mostramos el color que queremos, en este caso el blanco
+  display.setTextColor(SSD1306_WHITE);  // Mostramos el color que queremos, en este pantalla el blanco
   display.cp437(true);      		        // Aqui indicamos el codigo de caracteres que vamos a utilizar
 
   display.setCursor(0, 0);	    	// Posiciona el cursor en la pantalla
