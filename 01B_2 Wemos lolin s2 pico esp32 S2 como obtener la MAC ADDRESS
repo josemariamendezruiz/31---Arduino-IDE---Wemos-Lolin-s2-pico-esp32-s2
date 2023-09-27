@@ -1,0 +1,52 @@
+/*
+    COMO OBTENER LA MAC ADRRESS DEL MODULO WIFI DEL ESP32 y MOSTRARLO EN LA OLED INTEGRADA
+    AUTOR : JOSE MARIA MENDEZ RUIZ
+    SEPTIEMRE 2023
+    CODIGO LIBRE PARA UTILIZAR COMO QUIERAS
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/
+#include <WiFi.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define ANCHO 128          // Definimos el ancho de la pantalla en pixels
+#define ALTO 32            // Definimos el alto de la pantalla en pixels
+#define PIN_OLED_RESET  18 // Definimos el pin IO que utiliza para Reset, esto lo tenemos en el datasheet de la placa que hayamos comprado
+#define ADDRESS 0x3C       // Definimos la direccion I2C de nuestra pantalla, esto lo tenemos en el datasheet de la placa
+
+Adafruit_SSD1306 display(ANCHO, ALTO, &Wire, PIN_OLED_RESET); // Creamos el objeto para manejar la pantalla
+
+
+void setup(){
+  Serial.begin(9600);
+  if(!display.begin(SSD1306_SWITCHCAPVCC, ADDRESS)) {
+    Serial.println(F("SSD1306 no encontrado"));
+    for(;;); // Para por no localizacion del oled
+  }
+
+  display.clearDisplay();               // limpiamos la pantalla 
+  display.setTextSize(1);               // Le indicamos el tamaño
+  display.setTextColor(SSD1306_WHITE);  // Seleccionamos el color de la pantalla, en este caso el blanco
+  display.cp437(true);                  // Aqui indicamos el codigo de caracteres que vamos a utilizar
+
+  display.setCursor(0, 0);              // Posiciona el cursor en la pantalla
+  display.print(WiFi.macAddress());     // Escribe la MAC
+  display.display();                    // Muestra lo que haya en pantalla
+ 
+}
+ 
+void loop(){
+
+}
